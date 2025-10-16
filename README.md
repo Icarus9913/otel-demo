@@ -57,6 +57,11 @@ go run main.go
 go run main.go -otlp-grpc
 ```
 
+**With OTLP HTTP exporter:**
+```bash
+go run main.go -otlp-http
+```
+
 **With Prometheus exporter:**
 ```bash
 go run main.go -prometheus
@@ -65,7 +70,7 @@ go run main.go -prometheus
 ## What You'll See
 
 The application will:
-1. Initialize OpenTelemetry with console exporter (default), OTLP exporter (with `-otlp-grpc` flag), or Prometheus exporter (with `-prometheus` flag)
+1. Initialize OpenTelemetry with console exporter (default), OTLP gRPC exporter (with `-otlp-grpc` flag), OTLP HTTP exporter (with `-otlp-http` flag), or Prometheus exporter (with `-prometheus` flag)
 2. Create three metric instruments (counter, gauge, histogram)
 3. Generate sample metrics every 2 seconds for 100 iterations
 4. Export metrics to console, OpenTelemetry Collector, or Prometheus endpoint

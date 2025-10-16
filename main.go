@@ -13,6 +13,7 @@ import (
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc"
+	"go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp"
 	"go.opentelemetry.io/otel/exporters/prometheus"
 	"go.opentelemetry.io/otel/exporters/stdout/stdoutmetric"
 	"go.opentelemetry.io/otel/metric"
@@ -23,13 +24,14 @@ import (
 
 func main() {
 	useGrpcExporter := flag.Bool("otlp-grpc", false, "Use OTLP gRPC exporter")
+	useHttpExporter := flag.Bool("otlp-http", false, "Use OTLP HTTP exporter")
 	usePrometheus := flag.Bool("prometheus", false, "Use Prometheus exporter")
 	flag.Parse()
 
 	ctx := context.Background()
 
 	// Initialize OpenTelemetry
-	shutdown, err := initOTel(ctx, *useGrpcExporter, *usePrometheus)
+	shutdown, err := initOTel(ctx, *useGrpcExporter, *useHttpExporter, *usePrometheus)
 	if err != nil {
 		log.Fatalf("Failed to initialize OpenTelemetry: %v", err)
 	}
@@ -87,7 +89,7 @@ func main() {
 	fmt.Println("Demo completed")
 }
 
-func initOTel(ctx context.Context, useGrpcExporter, usePrometheus bool) (func(), error) {
+func initOTel(ctx context.Context, useGrpcExporter, useHttpExporter, usePrometheus bool) (func(), error) {
 	// Create resource
 	res, err := resource.New(ctx,
 		resource.WithAttributes(
@@ -125,13 +127,26 @@ func initOTel(ctx context.Context, useGrpcExporter, usePrometheus bool) (func(),
 			otlpmetricgrpc.WithInsecure(),
 		)
 		if err != nil {
-			return nil, fmt.Errorf("failed to create OTLP exporter: %w", err)
+			return nil, fmt.Errorf("failed to create OTLP gRPC exporter: %w", err)
 		}
 		meterProvider = sdkmetric.NewMeterProvider(
 			sdkmetric.WithResource(res),
 			sdkmetric.WithReader(sdkmetric.NewPeriodicReader(exporter, sdkmetric.WithInterval(3*time.Second))),
 		)
 		fmt.Println("Using OTLP gRPC exporter")
+	} else if useHttpExporter {
+		exporter, err := otlpmetrichttp.New(ctx,
+			otlpmetrichttp.WithEndpoint("127.0.0.1:4318"),
+			otlpmetrichttp.WithInsecure(),
+		)
+		if err != nil {
+			return nil, fmt.Errorf("failed to create OTLP HTTP exporter: %w", err)
+		}
+		meterProvider = sdkmetric.NewMeterProvider(
+			sdkmetric.WithResource(res),
+			sdkmetric.WithReader(sdkmetric.NewPeriodicReader(exporter, sdkmetric.WithInterval(3*time.Second))),
+		)
+		fmt.Println("Using OTLP HTTP exporter")
 	} else {
 		exporter, err := stdoutmetric.New()
 		if err != nil {
