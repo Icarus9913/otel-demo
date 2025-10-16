@@ -57,26 +57,38 @@ go run main.go
 go run main.go -otlp-grpc
 ```
 
+**With Prometheus exporter:**
+```bash
+go run main.go -prometheus
+```
+
 ## What You'll See
 
 The application will:
-1. Initialize OpenTelemetry with console exporter (default) or OTLP exporter (with `-otlp` flag)
+1. Initialize OpenTelemetry with console exporter (default), OTLP exporter (with `-otlp-grpc` flag), or Prometheus exporter (with `-prometheus` flag)
 2. Create three metric instruments (counter, gauge, histogram)
 3. Generate sample metrics every 2 seconds for 100 iterations
-4. Export metrics to console or OpenTelemetry Collector
+4. Export metrics to console, OpenTelemetry Collector, or Prometheus endpoint
 
 ## Viewing Metrics
+
+### Console Output
+Metrics are printed to stdout when using the default console exporter.
+
+### Prometheus Exporter Endpoint
+When using `-prometheus` flag, metrics are available at:
+- http://localhost:2112/metrics
 
 ### OpenTelemetry Collector Logs
 ```bash
 docker-compose logs otel-collector
 ```
 
-### Prometheus UI
+### Prometheus UI (via Collector)
 Open http://localhost:9090 and query:
-- `myapp_requests_total` - Counter metrics
-- `myapp_cpu_usage` - Gauge metrics  
-- `myapp_request_duration` - Histogram metrics
+- `requests_total` - Counter metrics
+- `cpu_usage` - Gauge metrics
+- `request_duration` - Histogram metrics
 
 ## Configuration Files
 
@@ -119,6 +131,6 @@ docker-compose down
 
 ## Troubleshooting
 
-- Ensure ports 4317, 4318, 8889, and 9090 are available
+- Ensure ports 2112 (Prometheus exporter), 4317, 4318, 8889, and 9090 are available
 - Check collector logs if metrics aren't appearing
 - Verify Go module dependencies with `go mod tidy`

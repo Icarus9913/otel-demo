@@ -6,11 +6,14 @@ import (
 	"fmt"
 	"log"
 	"math/rand"
+	"net/http"
 	"time"
 
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc"
+	"go.opentelemetry.io/otel/exporters/prometheus"
 	"go.opentelemetry.io/otel/exporters/stdout/stdoutmetric"
 	"go.opentelemetry.io/otel/metric"
 	sdkmetric "go.opentelemetry.io/otel/sdk/metric"
@@ -19,13 +22,14 @@ import (
 )
 
 func main() {
-	useGrpcExporter := flag.Bool("otlp-grpc", false, "Use OTLP gRPC exporter instead of console exporter")
+	useGrpcExporter := flag.Bool("otlp-grpc", false, "Use OTLP gRPC exporter")
+	usePrometheus := flag.Bool("prometheus", false, "Use Prometheus exporter")
 	flag.Parse()
 
 	ctx := context.Background()
 
 	// Initialize OpenTelemetry
-	shutdown, err := initOTel(ctx, *useGrpcExporter)
+	shutdown, err := initOTel(ctx, *useGrpcExporter, *usePrometheus)
 	if err != nil {
 		log.Fatalf("Failed to initialize OpenTelemetry: %v", err)
 	}
@@ -83,7 +87,7 @@ func main() {
 	fmt.Println("Demo completed")
 }
 
-func initOTel(ctx context.Context, useGrpcExporter bool) (func(), error) {
+func initOTel(ctx context.Context, useGrpcExporter, usePrometheus bool) (func(), error) {
 	// Create resource
 	res, err := resource.New(ctx,
 		resource.WithAttributes(
@@ -95,31 +99,50 @@ func initOTel(ctx context.Context, useGrpcExporter bool) (func(), error) {
 		return nil, fmt.Errorf("failed to create resource: %w", err)
 	}
 
-	// Create exporter based on flag
-	var exporter sdkmetric.Exporter
+	// Create meter provider based on flag
+	var meterProvider *sdkmetric.MeterProvider
 
-	if useGrpcExporter {
-		exporter, err = otlpmetricgrpc.New(ctx,
+	if usePrometheus {
+		exporter, err := prometheus.New()
+		if err != nil {
+			return nil, fmt.Errorf("failed to create Prometheus exporter: %w", err)
+		}
+		meterProvider = sdkmetric.NewMeterProvider(
+			sdkmetric.WithResource(res),
+			sdkmetric.WithReader(exporter),
+		)
+		fmt.Println("Using Prometheus exporter")
+		fmt.Println("Metrics available at http://localhost:2112/metrics")
+		go func() {
+			http.Handle("/metrics", promhttp.Handler())
+			if err := http.ListenAndServe(":2112", nil); err != nil {
+				log.Printf("Error starting HTTP server: %v", err)
+			}
+		}()
+	} else if useGrpcExporter {
+		exporter, err := otlpmetricgrpc.New(ctx,
 			otlpmetricgrpc.WithEndpoint("127.0.0.1:4317"),
 			otlpmetricgrpc.WithInsecure(),
 		)
 		if err != nil {
 			return nil, fmt.Errorf("failed to create OTLP exporter: %w", err)
 		}
+		meterProvider = sdkmetric.NewMeterProvider(
+			sdkmetric.WithResource(res),
+			sdkmetric.WithReader(sdkmetric.NewPeriodicReader(exporter, sdkmetric.WithInterval(3*time.Second))),
+		)
 		fmt.Println("Using OTLP gRPC exporter")
 	} else {
-		exporter, err = stdoutmetric.New()
+		exporter, err := stdoutmetric.New()
 		if err != nil {
 			return nil, fmt.Errorf("failed to create console exporter: %w", err)
 		}
+		meterProvider = sdkmetric.NewMeterProvider(
+			sdkmetric.WithResource(res),
+			sdkmetric.WithReader(sdkmetric.NewPeriodicReader(exporter, sdkmetric.WithInterval(3*time.Second))),
+		)
 		fmt.Println("Using console exporter")
 	}
-
-	// Create meter provider
-	meterProvider := sdkmetric.NewMeterProvider(
-		sdkmetric.WithResource(res),
-		sdkmetric.WithReader(sdkmetric.NewPeriodicReader(exporter, sdkmetric.WithInterval(3*time.Second))),
-	)
 
 	// Set global meter provider
 	otel.SetMeterProvider(meterProvider)
