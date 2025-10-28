@@ -41,17 +41,17 @@ func main() {
 	meter := otel.Meter("otel-demo")
 
 	// Create metrics instruments
-	counter, err := meter.Int64Counter("requests_total", metric.WithDescription("Total number of requests"))
+	counter, err := meter.Int64Counter("requests.total", metric.WithDescription("Total number of requests"))
 	if err != nil {
 		log.Fatalf("Failed to create counter: %v", err)
 	}
 
-	gauge, err := meter.Float64UpDownCounter("cpu_usage", metric.WithDescription("Current CPU usage percentage"))
+	gauge, err := meter.Float64UpDownCounter("cpu.usage", metric.WithDescription("Current CPU usage percentage"))
 	if err != nil {
 		log.Fatalf("Failed to create gauge: %v", err)
 	}
 
-	histogram, err := meter.Float64Histogram("request_duration", 
+	histogram, err := meter.Float64Histogram("request.duration",
 		metric.WithDescription("Request duration in milliseconds"),
 		metric.WithExplicitBucketBoundaries(10, 50, 100, 200, 500, 1000, 2000),
 	)

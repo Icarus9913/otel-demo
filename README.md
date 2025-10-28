@@ -4,17 +4,17 @@ This demo showcases OpenTelemetry metrics implementation in Go with three types 
 
 ## Metrics Types Demonstrated
 
-### 1. Counter (`requests_total`)
+### 1. Counter (`requests.total`)
 - **Type**: Monotonic counter
 - **Description**: Tracks total number of requests
 - **Labels**: `method` (GET, POST, PUT, DELETE), `status` (200, 404, 500)
 
-### 2. UpDownCounter (`cpu_usage`)
+### 2. UpDownCounter (`cpu.usage`)
 - **Type**: UpDownCounter (used as gauge alternative)
 - **Description**: Current CPU usage percentage
 - **Labels**: `host` (demo-host)
 
-### 3. Histogram (`request_duration`)
+### 3. Histogram (`request.duration`)
 - **Type**: Distribution of values
 - **Description**: Request duration in milliseconds
 - **Labels**: `endpoint` (/api/users, /api/orders, /api/products)
@@ -91,9 +91,9 @@ docker-compose logs otel-collector
 
 ### Prometheus UI (via Collector)
 Open http://localhost:9090 and query:
-- `requests_total` - Counter metrics
-- `cpu_usage` - Gauge metrics
-- `request_duration` - Histogram metrics
+- `requests_total` - Counter metrics (converted from `requests.total`)
+- `cpu_usage` - Gauge metrics (converted from `cpu.usage`)
+- `request_duration` - Histogram metrics (converted from `request.duration`)
 
 ## Configuration Files
 
@@ -113,9 +113,9 @@ exporter, err := otlpmetricgrpc.New(ctx,
 
 ### Metric Instruments Creation
 ```go
-counter, _ := meter.Int64Counter("requests_total")
-gauge, _ := meter.Float64UpDownCounter("cpu_usage") 
-histogram, _ := meter.Float64Histogram("request_duration",
+counter, _ := meter.Int64Counter("requests.total")
+gauge, _ := meter.Float64UpDownCounter("cpu.usage")
+histogram, _ := meter.Float64Histogram("request.duration",
     metric.WithExplicitBucketBoundaries(10, 50, 100, 200, 500, 1000, 2000),
 )
 ```
