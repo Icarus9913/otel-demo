@@ -24,11 +24,116 @@
       },
       "Metrics": [
         {
-          "Name": "requests_total",
+          "Name": "requests.total",
           "Description": "Total number of requests",
           "Unit": "",
           "Data": {
             "DataPoints": [
+              {
+                "Attributes": [
+                  {
+                    "Key": "method",
+                    "Value": {
+                      "Type": "STRING",
+                      "Value": "POST"
+                    }
+                  },
+                  {
+                    "Key": "status",
+                    "Value": {
+                      "Type": "STRING",
+                      "Value": "500"
+                    }
+                  }
+                ],
+                "StartTime": "2025-10-29T11:08:36.623829+08:00",
+                "Time": "2025-10-29T11:09:09.624411+08:00",
+                "Value": 1
+              },
+              {
+                "Attributes": [
+                  {
+                    "Key": "method",
+                    "Value": {
+                      "Type": "STRING",
+                      "Value": "PUT"
+                    }
+                  },
+                  {
+                    "Key": "status",
+                    "Value": {
+                      "Type": "STRING",
+                      "Value": "200"
+                    }
+                  }
+                ],
+                "StartTime": "2025-10-29T11:08:36.623829+08:00",
+                "Time": "2025-10-29T11:09:09.624411+08:00",
+                "Value": 2
+              },
+              {
+                "Attributes": [
+                  {
+                    "Key": "method",
+                    "Value": {
+                      "Type": "STRING",
+                      "Value": "PUT"
+                    }
+                  },
+                  {
+                    "Key": "status",
+                    "Value": {
+                      "Type": "STRING",
+                      "Value": "500"
+                    }
+                  }
+                ],
+                "StartTime": "2025-10-29T11:08:36.623829+08:00",
+                "Time": "2025-10-29T11:09:09.624411+08:00",
+                "Value": 1
+              },
+              {
+                "Attributes": [
+                  {
+                    "Key": "method",
+                    "Value": {
+                      "Type": "STRING",
+                      "Value": "DELETE"
+                    }
+                  },
+                  {
+                    "Key": "status",
+                    "Value": {
+                      "Type": "STRING",
+                      "Value": "500"
+                    }
+                  }
+                ],
+                "StartTime": "2025-10-29T11:08:36.623829+08:00",
+                "Time": "2025-10-29T11:09:09.624411+08:00",
+                "Value": 1
+              },
+              {
+                "Attributes": [
+                  {
+                    "Key": "method",
+                    "Value": {
+                      "Type": "STRING",
+                      "Value": "GET"
+                    }
+                  },
+                  {
+                    "Key": "status",
+                    "Value": {
+                      "Type": "STRING",
+                      "Value": "200"
+                    }
+                  }
+                ],
+                "StartTime": "2025-10-29T11:08:36.623829+08:00",
+                "Time": "2025-10-29T11:09:09.624411+08:00",
+                "Value": 1
+              },
               {
                 "Attributes": [
                   {
@@ -46,72 +151,9 @@
                     }
                   }
                 ],
-                "StartTime": "2025-09-29T13:24:44.466279+08:00",
-                "Time": "2025-09-29T13:25:02.467379+08:00",
-                "Value": 1
-              },
-              {
-                "Attributes": [
-                  {
-                    "Key": "method",
-                    "Value": {
-                      "Type": "STRING",
-                      "Value": "DELETE"
-                    }
-                  },
-                  {
-                    "Key": "status",
-                    "Value": {
-                      "Type": "STRING",
-                      "Value": "200"
-                    }
-                  }
-                ],
-                "StartTime": "2025-09-29T13:24:44.466279+08:00",
-                "Time": "2025-09-29T13:25:02.467379+08:00",
+                "StartTime": "2025-10-29T11:08:36.623829+08:00",
+                "Time": "2025-10-29T11:09:09.624411+08:00",
                 "Value": 2
-              },
-              {
-                "Attributes": [
-                  {
-                    "Key": "method",
-                    "Value": {
-                      "Type": "STRING",
-                      "Value": "POST"
-                    }
-                  },
-                  {
-                    "Key": "status",
-                    "Value": {
-                      "Type": "STRING",
-                      "Value": "200"
-                    }
-                  }
-                ],
-                "StartTime": "2025-09-29T13:24:44.466279+08:00",
-                "Time": "2025-09-29T13:25:02.467379+08:00",
-                "Value": 1
-              },
-              {
-                "Attributes": [
-                  {
-                    "Key": "method",
-                    "Value": {
-                      "Type": "STRING",
-                      "Value": "POST"
-                    }
-                  },
-                  {
-                    "Key": "status",
-                    "Value": {
-                      "Type": "STRING",
-                      "Value": "500"
-                    }
-                  }
-                ],
-                "StartTime": "2025-09-29T13:24:44.466279+08:00",
-                "Time": "2025-09-29T13:25:02.467379+08:00",
-                "Value": 1
               },
               {
                 "Attributes": [
@@ -130,9 +172,51 @@
                     }
                   }
                 ],
-                "StartTime": "2025-09-29T13:24:44.466279+08:00",
-                "Time": "2025-09-29T13:25:02.467379+08:00",
-                "Value": 2
+                "StartTime": "2025-10-29T11:08:36.623829+08:00",
+                "Time": "2025-10-29T11:09:09.624411+08:00",
+                "Value": 1
+              },
+              {
+                "Attributes": [
+                  {
+                    "Key": "method",
+                    "Value": {
+                      "Type": "STRING",
+                      "Value": "POST"
+                    }
+                  },
+                  {
+                    "Key": "status",
+                    "Value": {
+                      "Type": "STRING",
+                      "Value": "200"
+                    }
+                  }
+                ],
+                "StartTime": "2025-10-29T11:08:36.623829+08:00",
+                "Time": "2025-10-29T11:09:09.624411+08:00",
+                "Value": 3
+              },
+              {
+                "Attributes": [
+                  {
+                    "Key": "method",
+                    "Value": {
+                      "Type": "STRING",
+                      "Value": "DELETE"
+                    }
+                  },
+                  {
+                    "Key": "status",
+                    "Value": {
+                      "Type": "STRING",
+                      "Value": "404"
+                    }
+                  }
+                ],
+                "StartTime": "2025-10-29T11:08:36.623829+08:00",
+                "Time": "2025-10-29T11:09:09.624411+08:00",
+                "Value": 3
               },
               {
                 "Attributes": [
@@ -151,8 +235,8 @@
                     }
                   }
                 ],
-                "StartTime": "2025-09-29T13:24:44.466279+08:00",
-                "Time": "2025-09-29T13:25:02.467379+08:00",
+                "StartTime": "2025-10-29T11:08:36.623829+08:00",
+                "Time": "2025-10-29T11:09:09.624411+08:00",
                 "Value": 2
               }
             ],
@@ -161,7 +245,7 @@
           }
         },
         {
-          "Name": "cpu_usage",
+          "Name": "cpu.usage",
           "Description": "Current CPU usage percentage",
           "Unit": "",
           "Data": {
@@ -176,9 +260,9 @@
                     }
                   }
                 ],
-                "StartTime": "2025-09-29T13:24:44.466318+08:00",
-                "Time": "2025-09-29T13:25:02.467387+08:00",
-                "Value": 487.05381418901817
+                "StartTime": "2025-10-29T11:08:36.623862+08:00",
+                "Time": "2025-10-29T11:09:09.624412+08:00",
+                "Value": 884.8214871339541
               }
             ],
             "Temporality": "CumulativeTemporality",
@@ -186,7 +270,7 @@
           }
         },
         {
-          "Name": "request_duration",
+          "Name": "request.duration",
           "Description": "Request duration in milliseconds",
           "Unit": "",
           "Data": {
@@ -201,47 +285,31 @@
                     }
                   }
                 ],
-                "StartTime": "2025-09-29T13:24:44.46632+08:00",
-                "Time": "2025-09-29T13:25:02.467388+08:00",
-                "Count": 4,
+                "StartTime": "2025-10-29T11:08:36.623864+08:00",
+                "Time": "2025-10-29T11:09:09.624413+08:00",
+                "Count": 6,
                 "Bounds": [
-                  0,
-                  5,
                   10,
-                  25,
                   50,
-                  75,
                   100,
-                  250,
+                  200,
                   500,
-                  750,
                   1000,
-                  2500,
-                  5000,
-                  7500,
-                  10000
+                  2000
                 ],
                 "BucketCounts": [
                   0,
-                  0,
-                  0,
-                  0,
-                  0,
-                  0,
-                  0,
                   1,
+                  1,
+                  0,
                   2,
-                  0,
-                  1,
-                  0,
-                  0,
-                  0,
+                  2,
                   0,
                   0
                 ],
                 "Min": {},
                 "Max": {},
-                "Sum": 1583.8373582219242
+                "Sum": 2426.4745840958385
               },
               {
                 "Attributes": [
@@ -253,47 +321,31 @@
                     }
                   }
                 ],
-                "StartTime": "2025-09-29T13:24:44.46632+08:00",
-                "Time": "2025-09-29T13:25:02.467388+08:00",
-                "Count": 1,
+                "StartTime": "2025-10-29T11:08:36.623864+08:00",
+                "Time": "2025-10-29T11:09:09.624413+08:00",
+                "Count": 7,
                 "Bounds": [
-                  0,
-                  5,
                   10,
-                  25,
                   50,
-                  75,
                   100,
-                  250,
+                  200,
                   500,
-                  750,
                   1000,
-                  2500,
-                  5000,
-                  7500,
-                  10000
+                  2000
                 ],
                 "BucketCounts": [
                   0,
                   0,
                   0,
                   0,
-                  0,
-                  0,
-                  0,
-                  0,
-                  0,
-                  0,
-                  1,
-                  0,
-                  0,
-                  0,
+                  2,
+                  5,
                   0,
                   0
                 ],
                 "Min": {},
                 "Max": {},
-                "Sum": 819.507478758658
+                "Sum": 3918.9485441016245
               },
               {
                 "Attributes": [
@@ -305,47 +357,31 @@
                     }
                   }
                 ],
-                "StartTime": "2025-09-29T13:24:44.46632+08:00",
-                "Time": "2025-09-29T13:25:02.467388+08:00",
+                "StartTime": "2025-10-29T11:08:36.623864+08:00",
+                "Time": "2025-10-29T11:09:09.624413+08:00",
                 "Count": 4,
                 "Bounds": [
-                  0,
-                  5,
                   10,
-                  25,
                   50,
-                  75,
                   100,
-                  250,
+                  200,
                   500,
-                  750,
                   1000,
-                  2500,
-                  5000,
-                  7500,
-                  10000
+                  2000
                 ],
                 "BucketCounts": [
+                  1,
                   0,
                   0,
-                  0,
-                  0,
-                  0,
-                  0,
-                  2,
-                  0,
-                  2,
-                  0,
-                  0,
-                  0,
-                  0,
-                  0,
+                  1,
+                  1,
+                  1,
                   0,
                   0
                 ],
                 "Min": {},
                 "Max": {},
-                "Sum": 858.8855591687418
+                "Sum": 1369.7013803715483
               }
             ],
             "Temporality": "CumulativeTemporality"
