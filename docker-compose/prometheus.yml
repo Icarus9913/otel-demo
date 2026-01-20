@@ -3,3 +3,10 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ['otel-collector:9090']
+    metric_relabel_configs:
+      - action: labeldrop
+        regex: '.*exported.*'
+      - action: labeldrop
+        regex: '.*instance.*'
+      - action: labeldrop
+        regex: 'job'
