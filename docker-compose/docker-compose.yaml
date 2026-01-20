@@ -23,8 +23,8 @@ services:
     ports:
       - 3000:3000
     environment:
-      GF_SECURITY_ADMIN_USER: kong
-      GF_SECURITY_ADMIN_PASSWORD: kong
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
       GF_PATHS_PROVISIONING: /etc/grafana/provisioning
     volumes:
       - ./grafana/provisioning:/etc/grafana/provisioning
