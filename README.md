@@ -95,6 +95,11 @@ Open http://localhost:9090 and query:
 - `cpu_usage` - Gauge metrics (converted from `cpu.usage`)
 - `request_duration` - Histogram metrics (converted from `request.duration`)
 
+### Grafana UI (optional)
+If Grafana is included in your `docker-compose.yaml`, access it at [http://localhost:3000](http://localhost:3000) with default credentials:
+- **User**: `admin`
+- **Password**: `admin`
+
 ## Configuration Files
 
 - `otel-collector.yaml` - OpenTelemetry Collector configuration
