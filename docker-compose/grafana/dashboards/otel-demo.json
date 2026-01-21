@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 0,
+  "id": 1,
   "links": [],
   "panels": [
     {
@@ -441,7 +441,7 @@
       "targets": [
         {
           "editorMode": "builder",
-          "expr": "myapp_kong_websocket_connection_duration_seconds_bucket",
+          "expr": "myapp_kong_websocket_handshake_error_count_total",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -668,5 +668,5 @@
   "timezone": "browser",
   "title": "kong websocket",
   "uid": "admmv27",
-  "version": 8
+  "version": 1
 }
