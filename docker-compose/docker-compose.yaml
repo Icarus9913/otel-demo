@@ -23,9 +23,9 @@ services:
     ports:
       - 3000:3000
     environment:
-      GF_SECURITY_ADMIN_USER: admin
-      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_SECURITY_ADMIN_USER: kong
+      GF_SECURITY_ADMIN_PASSWORD: kong
       GF_PATHS_PROVISIONING: /etc/grafana/provisioning
     volumes:
       - ./grafana/provisioning:/etc/grafana/provisioning
-      - ./grafana/dashboards:/var/lib/grafana/dashboards
+      - ./grafana/dashboards/otel-demo.json:/etc/grafana/provisioning/dashboards/otel-demo.json
